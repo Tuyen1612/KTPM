@@ -10,18 +10,28 @@ namespace _0306191373_0306191333_0306191376_0306191482.Models
     public class Account
     {
         [Key]
-        [DisplayName("MÃ KHÁCH HÀNG")]
+        [DisplayName("ID")]
         public int id { get; set; }
-        [DisplayName("Tên đăng nhập")]
+        [DisplayName("UserName")]
+        [MaxLength(20, ErrorMessage = "Maximum 20 characters")]
         public string Username { get; set; }
-        [DisplayName("Mật Khẩu")]
+        [DisplayName("PassWord")]
+        [MaxLength(20, ErrorMessage = "Maximum 20 characters")]
         public String Password { get; set; }
         [DisplayName("Email")]
         public String Email { get; set; }
-        [DisplayName("Họ và Tên")]
-        public String hovaten { get; set; }
-        [DisplayName("Địa Chỉ")]
-        public String diachi { get; set; }
-        
+        [DisplayName("Phone number")]
+        public String Phone { get; set; }
+        [DisplayName("Address")]
+        public String Address { get; set; }
+        [DisplayName("Full Name")]
+        public String Fullname { get; set; }
+        [DisplayName("Is Admin")]
+        public bool IsAdmin { get; set; }
+        [DisplayName("Avatar")]
+        public  String Avatar {get; set; }
+        [DisplayName("Status")]
+        public bool Status { get; set; }
+
     }
 }
