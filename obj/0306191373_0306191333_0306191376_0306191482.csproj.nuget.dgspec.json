@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\HK5\\KTPM\\0306191373_0306191333_0306191376_0306191482\\0306191373_0306191333_0306191376_0306191482.csproj": {}
+    "D:\\HK5\\KTPM\\KTPM\\0306191373_0306191333_0306191376_0306191482.csproj": {}
   },
   "projects": {
-    "D:\\HK5\\KTPM\\0306191373_0306191333_0306191376_0306191482\\0306191373_0306191333_0306191376_0306191482.csproj": {
+    "D:\\HK5\\KTPM\\KTPM\\0306191373_0306191333_0306191376_0306191482.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\HK5\\KTPM\\0306191373_0306191333_0306191376_0306191482\\0306191373_0306191333_0306191376_0306191482.csproj",
+        "projectUniqueName": "D:\\HK5\\KTPM\\KTPM\\0306191373_0306191333_0306191376_0306191482.csproj",
         "projectName": "0306191373_0306191333_0306191376_0306191482",
-        "projectPath": "D:\\HK5\\KTPM\\0306191373_0306191333_0306191376_0306191482\\0306191373_0306191333_0306191376_0306191482.csproj",
+        "projectPath": "D:\\HK5\\KTPM\\KTPM\\0306191373_0306191333_0306191376_0306191482.csproj",
         "packagesPath": "C:\\Users\\BICHTUYEN\\.nuget\\packages\\",
-        "outputPath": "D:\\HK5\\KTPM\\0306191373_0306191333_0306191376_0306191482\\obj\\",
+        "outputPath": "D:\\HK5\\KTPM\\KTPM\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\BICHTUYEN\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.13, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[5.0.11, )"
