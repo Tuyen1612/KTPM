@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 namespace _0306191373_0306191333_0306191376_0306191482.Models
 {
-    public class InvoiceDetails
+    public class InvoiceDetail
     {
         [Key]
         [DisplayName("ID")]
@@ -16,8 +16,11 @@ namespace _0306191373_0306191333_0306191376_0306191482.Models
         [DisplayName("Unit Price")]
         public int UnitPrice { get; set; }
         [DisplayName("Invoice ID")]
-        public Invoices Invoice { get; set; }
+        public int InvoiceId { get; set; }
+        public Invoice Invoice { get; set; }
         [DisplayName("Product ID")]
-        public Products Product { get; set; }
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
+        
     }
 }

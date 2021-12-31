@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 namespace _0306191373_0306191333_0306191376_0306191482.Models
 {
-    public class Invoices
+    public class Invoice
     {
         [Key]
         [DisplayName("ID")]
@@ -16,15 +16,16 @@ namespace _0306191373_0306191333_0306191376_0306191482.Models
         [DisplayName("IssuedDate")]
         public DateTime IssueDate { get; set; }
         [DisplayName("Shipping Address")]
-        public String ShippingAddress { get; set; }
+        public string ShippingAddress { get; set; }
         [DisplayName("Shipping Phone")]
-        public String ShippingPhone { get; set; }
+        public string ShippingPhone { get; set; }
         [DisplayName("Total")]
         public int Total { get; set; }
         [DisplayName("Account ID")]
         public Account Account { get; set; }
+        public int AccountId { get; set; }
         [DisplayName("Status")]
         public bool Status { get; set; }
-
+        public List<InvoiceDetail> InvoiceDetails { get; set; }
     }
 }
