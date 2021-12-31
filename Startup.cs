@@ -1,6 +1,8 @@
+using _0306191373_0306191333_0306191376_0306191482.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +26,8 @@ namespace _0306191373_0306191333_0306191376_0306191482
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<ShopContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("Shop")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
