@@ -22,8 +22,8 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
         // GET: Invoices
         public async Task<IActionResult> Index()
         {
-            var shopContext = _context.Invoides.Include(i => i.Account);
-            return View(await shopContext.ToListAsync());
+            var lstInvoices = _context.Invoides.Include(i => i.Account).ToList();
+            return View(lstInvoices);
         }
 
         // GET: Invoices/Details/5
