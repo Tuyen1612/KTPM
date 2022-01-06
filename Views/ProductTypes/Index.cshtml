@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<_0306191373_0306191333_0306191376_0306191482.Models.ProductType>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh Mục";
 }
 
 <h1>Index</h1>
@@ -12,6 +12,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.TypeName)
             </th>
@@ -24,6 +27,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TypeName)
             </td>
