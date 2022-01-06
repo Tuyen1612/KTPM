@@ -1,12 +1,13 @@
 ﻿@model _0306191373_0306191333_0306191376_0306191482.Models.Invoice
 
 @{
+    Layout = "_LayoutAdmin";
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 style="margin-left: 350px">Details</h1>
 
-<div>
+<div style="margin-left:300px">
     <h4>Invoice</h4>
     <hr />
     <dl class="row">
@@ -41,10 +42,10 @@
             @Html.DisplayFor(model => model.Total)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Account)
+            @Html.DisplayNameFor(model => model.Account.Fullname)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Account.Password)
+            @Html.DisplayFor(model => model.Account.Fullname)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Status)
@@ -54,7 +55,6 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+<div style="margin-left:300px">
     <a asp-action="Index">Back to List</a>
 </div>

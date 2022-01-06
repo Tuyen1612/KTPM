@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Github\\KTPM\\0306191373_0306191333_0306191376_0306191482.csproj": {}
+    "D:\\HK5\\KTPM\\KTPM\\0306191373_0306191333_0306191376_0306191482.csproj": {}
   },
   "projects": {
-    "E:\\Github\\KTPM\\0306191373_0306191333_0306191376_0306191482.csproj": {
+    "D:\\HK5\\KTPM\\KTPM\\0306191373_0306191333_0306191376_0306191482.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Github\\KTPM\\0306191373_0306191333_0306191376_0306191482.csproj",
+        "projectUniqueName": "D:\\HK5\\KTPM\\KTPM\\0306191373_0306191333_0306191376_0306191482.csproj",
         "projectName": "0306191373_0306191333_0306191376_0306191482",
-        "projectPath": "E:\\Github\\KTPM\\0306191373_0306191333_0306191376_0306191482.csproj",
-        "packagesPath": "C:\\Users\\vanti\\.nuget\\packages\\",
-        "outputPath": "E:\\Github\\KTPM\\obj\\",
+        "projectPath": "D:\\HK5\\KTPM\\KTPM\\0306191373_0306191333_0306191376_0306191482.csproj",
+        "packagesPath": "C:\\Users\\BICHTUYEN\\.nuget\\packages\\",
+        "outputPath": "D:\\HK5\\KTPM\\KTPM\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\vanti\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\BICHTUYEN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -81,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

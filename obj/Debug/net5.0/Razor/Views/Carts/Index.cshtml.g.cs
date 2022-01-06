@@ -13,14 +13,14 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #nullable restore
-#line 1 "E:\Github\KTPM\Views\_ViewImports.cshtml"
+#line 1 "D:\HK5\KTPM\KTPM\Views\_ViewImports.cshtml"
 using _0306191373_0306191333_0306191376_0306191482;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "E:\Github\KTPM\Views\_ViewImports.cshtml"
+#line 2 "D:\HK5\KTPM\KTPM\Views\_ViewImports.cshtml"
 using _0306191373_0306191333_0306191376_0306191482.Models;
 
 #line default
@@ -60,7 +60,7 @@ using _0306191373_0306191333_0306191376_0306191482.Models;
         {
             WriteLiteral("\r\n");
 #nullable restore
-#line 3 "E:\Github\KTPM\Views\Carts\Index.cshtml"
+#line 3 "D:\HK5\KTPM\KTPM\Views\Carts\Index.cshtml"
   
     ViewData["Title"] = "Giỏ Hàng";
 
