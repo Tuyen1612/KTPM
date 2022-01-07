@@ -350,3 +350,4 @@ D:\HK5\KTPM\KTPM\obj\Debug\net5.0\0306191373_0306191333_0306191376_0306191482.pd
 D:\HK5\KTPM\KTPM\obj\Debug\net5.0\0306191373_0306191333_0306191376_0306191482.genruntimeconfig.cache
 D:\HK5\KTPM\KTPM\obj\Debug\net5.0\Razor\Views\Shared\_LayoutAdmin.cshtml.g.cs
 E:\Github\KTPM\obj\Debug\net5.0\Razor\Views\Shared\_LayoutAdmin.cshtml.g.cs
+E:\Github\KTPM\obj\Debug\net5.0\Razor\Views\Invoices\InvoiceDetails.cshtml.g.cs

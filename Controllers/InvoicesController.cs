@@ -45,10 +45,31 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
             return View(invoice);
         }
 
+        //tien-dev
+        public async Task<IActionResult> InvoiceDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var invoiceDetails = await _context.InvoiceDetails.Include(i =>i.Product)
+                .Where(i => i.InvoiceId == id).ToListAsync<InvoiceDetail>();
+
+            if (invoiceDetails == null)
+            {   
+                return NotFound();
+            }
+
+            return View(invoiceDetails);
+        }
+
+        //tien-dev 
+
         // GET: Invoices/Create
         public IActionResult Create()
         {
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Password");
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Fullname");
             return View();
         }
 
@@ -65,7 +86,7 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Password", invoice.AccountId);
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Fullname", invoice.AccountId);
             return View(invoice);
         }
 
@@ -82,7 +103,7 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
             {
                 return NotFound();
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Password", invoice.AccountId);
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Fullname", invoice.AccountId);
             return View(invoice);
         }
 
@@ -118,7 +139,7 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Password", invoice.AccountId);
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Fullname", invoice.AccountId);
             return View(invoice);
         }
 

@@ -2,14 +2,15 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = "_LayoutAdmin";
 }
 
-<h1>Edit</h1>
+<h1  style="margin-left: 480px">Edit</h1>
 
-<h4>InvoiceDetail</h4>
+<h4  style="margin-left: 510px">InvoiceDetail</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row"  style="margin-left: 300px">
+    <div class="col-md-4" >
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="id" />
@@ -40,7 +41,7 @@
     </div>
 </div>
 
-<div>
+<div  style="margin-left: 300px">
     <a asp-action="Index">Back to List</a>
 </div>
 
