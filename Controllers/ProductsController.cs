@@ -156,5 +156,17 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
         {
             return _context.Products.Any(e => e.Id == id);
         }
+
+        [HttpGet]
+        public IActionResult Search(string keyword = "", int min = 0, int max = int.MaxValue)
+        {
+            if (keyword == null)
+            {
+                keyword = "";
+            }
+
+            var productList = _context.Products.Where(prod => prod.Name.Contains(keyword) || prod.SKU.Contains(keyword) || prod.ProductType.TypeName.Contains(keyword) || prod.Author.Contains(keyword)).Where(prod => prod.Price >= min && prod.Price <= max).ToList();
+            return View(productList);
+        }
     }
 }

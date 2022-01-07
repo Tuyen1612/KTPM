@@ -1,0 +1,91 @@
+﻿@model IEnumerable<_0306191373_0306191333_0306191376_0306191482.Models.Product>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Kết quả tìm kiếm";
+}
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Kết quả tìm kiếm</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--================Search Box Area =================-->
+
+   
+        <!--================Search Box Area =================-->
+        <div class="search_area zoom-anim-dialog mfp-hide" id="test-search" style="margin-left:200px">
+            <div class="search_box_inner">
+                <form asp-controller="Products" asp-action="Search" method="get">
+
+                    <div class="input-group" style="margin-top:10px">
+                        <input type="text" name="min" class="form-control" placeholder="Nhập giá ">
+                        <input style="margin-top:10px" type="text" name="max" class="form-control" placeholder="Nhập giá">
+                        <button style="margin-top:10px">Search</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-shop-product">
+                        <div class="product-upper">
+                            <img src="~/img/@item.Image" alt="@item.Id">
+                        </div>
+                        <h2><a href="">@item.Name</a></h2>
+                        <div class="product-carousel-price">
+                            <ins>@item.Price</ins>
+                        </div>
+
+                        <div class="product-option-shop">
+                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-pagination text-center">
+                    <nav>
+                        <ul class="pagination">
+                            <li>
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li>
+                                <a href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
