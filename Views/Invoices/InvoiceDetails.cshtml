@@ -1,0 +1,60 @@
+﻿@model IEnumerable<_0306191373_0306191333_0306191376_0306191482.Models.InvoiceDetail>
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Details";
+}
+
+<h1 style="margin-left: 350px">Invoice Details</h1>
+
+<div style="margin-left:300px">
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product.Price)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Price)
+                    </td>
+                    <td>
+                        <a asp-controller="InvoiceDetails" asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                        <a asp-controller="InvoiceDetails" asp-action="Details" asp-route-id="@item.id">Details</a> |
+                        <a asp-controller="InvoiceDetails" asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div style="margin-left:300px">
+    <a asp-controller="Invoices" asp-action="Index">Back to List</a>
+</div>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+

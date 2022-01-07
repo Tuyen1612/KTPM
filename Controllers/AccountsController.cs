@@ -22,7 +22,7 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
         // GET: Accounts
         public async Task<IActionResult> Index()
         {
-            var lstAccount = _context.Accounts.ToList();
+            var lstAccount =  _context.Accounts.ToList();
             return View(lstAccount);
         }
 

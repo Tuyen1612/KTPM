@@ -157,7 +157,6 @@ E:\Github\KTPM\obj\Debug\net5.0\Razor\Views\Carts\Index.cshtml.g.cs
 E:\Github\KTPM\obj\Debug\net5.0\Razor\Views\Invoices\Create.cshtml.g.cs
 E:\Github\KTPM\obj\Debug\net5.0\Razor\Views\Invoices\Delete.cshtml.g.cs
 E:\Github\KTPM\obj\Debug\net5.0\Razor\Views\Invoices\Details.cshtml.g.cs
-E:\Github\KTPM\obj\Debug\net5.0\Razor\Views\Invoices\Edit.cshtml.g.cs
 E:\Github\KTPM\obj\Debug\net5.0\Razor\Views\Invoices\Index.cshtml.g.cs
 E:\Github\KTPM\obj\Debug\net5.0\Razor\Views\InvoiceDetails\Create.cshtml.g.cs
 E:\Github\KTPM\obj\Debug\net5.0\Razor\Views\InvoiceDetails\Delete.cshtml.g.cs
@@ -350,3 +349,5 @@ D:\HK5\KTPM\KTPM\obj\Debug\net5.0\ref\0306191373_0306191333_0306191376_030619148
 D:\HK5\KTPM\KTPM\obj\Debug\net5.0\0306191373_0306191333_0306191376_0306191482.pdb
 D:\HK5\KTPM\KTPM\obj\Debug\net5.0\0306191373_0306191333_0306191376_0306191482.genruntimeconfig.cache
 D:\HK5\KTPM\KTPM\obj\Debug\net5.0\Razor\Views\Shared\_LayoutAdmin.cshtml.g.cs
+E:\Github\KTPM\obj\Debug\net5.0\Razor\Views\Shared\_LayoutAdmin.cshtml.g.cs
+E:\Github\KTPM\obj\Debug\net5.0\Razor\Views\Invoices\InvoiceDetails.cshtml.g.cs
