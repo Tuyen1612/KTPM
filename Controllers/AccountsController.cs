@@ -57,9 +57,11 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,Avatar,Status")] Account account)
         {
+            
             if (ModelState.IsValid)
             {
-                _context.Add(account);
+               
+                    _context.Add(account);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
