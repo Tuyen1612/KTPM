@@ -6,6 +6,6 @@
     "\\Views\\Accounts",
     "\\Views\\Products"
   ],
-  "SelectedNode": "\\Models\\InvoiceDetails.cs",
+  "SelectedNode": "\\Views\\Accounts\\Login.cshtml",
   "PreviewInSolutionExplorer": false
 }
