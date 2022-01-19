@@ -204,7 +204,14 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
                 HttpContext.Session.SetInt32("id", account.id);
                 HttpContext.Session.SetString("Password", account.Password);
                 HttpContext.Session.SetString("Username", account.Username);
-                return RedirectToAction("index", "Home");
+                if (account.IsAdmin == false)
+                {
+                    return RedirectToAction("index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("index", "Accounts");
+                }
             }
             else
             {
