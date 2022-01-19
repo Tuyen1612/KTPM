@@ -244,13 +244,30 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
             }
             return View();
         }*/
-        public IActionResult Profile()
+        //public IActionResult Profile()
+        //{
+        //    var idUser = HttpContext.Session.GetInt32("id");
+        //        var account = _context.Accounts.Where(acc => acc.id == idUser).FirstOrDefault();
+        //    return View(account);
+        //}
+
+        public async Task<IActionResult> Profile()
         {
             var idUser = HttpContext.Session.GetInt32("id");
-                var account = _context.Accounts.Where(acc => acc.id == idUser).FirstOrDefault();
+            if (idUser == null)
+            {
+                return NotFound();
+            }
+
+            var account = await _context.Accounts
+                .FirstOrDefaultAsync(m => m.id == idUser);
+            if (account == null)
+            {
+                return NotFound();
+            }
+
             return View(account);
         }
-
         [HttpPost]
         public IActionResult UpdateProfile(string username, string fullname,string password, string address, string phone, string avatar)
         {
