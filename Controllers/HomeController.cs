@@ -7,25 +7,39 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.EntityFrameworkCore;
+using _0306191373_0306191333_0306191376_0306191482.Data;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace _0306191373_0306191333_0306191376_0306191482.Controllers
 {
     public class HomeController : Controller
     {
+        //tiendv
+        private readonly ShopContext _context;
+        //tiendv
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ShopContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var id = HttpContext.Session.GetInt32("id");
+            ViewBag.id = id;
             if(HttpContext.Request.Cookies.ContainsKey("UserName"))
             {
                 ViewBag.UserName = HttpContext.Request.Cookies["UserName"].ToString();
             }
-            return View();
+            var lstProduct = _context.Products;
+            return View(await lstProduct.ToListAsync());
+
         }
+
 
         public IActionResult Privacy()
         {

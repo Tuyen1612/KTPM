@@ -54,7 +54,7 @@ namespace _0306191373_0306191333_0306191376_0306191482
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
