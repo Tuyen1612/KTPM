@@ -3,10 +3,12 @@
     ViewData["Title"] = "Trang chủ";
     string username;
     bool member = false;
+    int id;
     if(ViewBag.UserName != null)
     {
         username = ViewBag.UserName;
         member = true;
+        id = ViewBag.id;
     }
     else
     {

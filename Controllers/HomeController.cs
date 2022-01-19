@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 using _0306191373_0306191333_0306191376_0306191482.Data;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace _0306191373_0306191333_0306191376_0306191482.Controllers
 {
@@ -27,11 +29,15 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var id = HttpContext.Session.GetInt32("id");
+            ViewBag.id = id;
             if(HttpContext.Request.Cookies.ContainsKey("UserName"))
             {
                 ViewBag.UserName = HttpContext.Request.Cookies["UserName"].ToString();
             }
-            return View();
+            var lstProduct = _context.Products;
+            return View(await lstProduct.ToListAsync());
+
         }
 
 

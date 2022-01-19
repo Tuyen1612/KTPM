@@ -164,7 +164,7 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
         public async Task<IActionResult> Login (string Username,string Password)
         {
             Account account = _context.Accounts.Where(a => a.Username == Username && a.Password == Password).FirstOrDefault();
-            if(account == null)
+            if(account != null)
             {
                 HttpContext.Session.SetInt32("ID", account.id);
                 HttpContext.Session.SetString("UserName", account.Username);
