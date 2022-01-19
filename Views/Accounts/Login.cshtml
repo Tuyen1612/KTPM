@@ -1,62 +1,30 @@
 ﻿@{ Layout = "_Login"; ViewData["Title"] = "Login"; }
 
 @model _0306191373_0306191333_0306191376_0306191482.Models.Account;
+
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <form asp-action="Create">
-            <h1>Create Account</h1>
-            <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-            <span>or use your email for registration</span>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form method="post">
+            <h1>Sign Up</h1>
+            <input type="text" placeholder="Full name" asp-for="Fullname" />
+            <input type="text" placeholder="Username" asp-for="Username" />
+            <input type="password" placeholder="Password" asp-for="Password" />
+            <input type="email" placeholder="Email" asp-for="Email" />
+            <input type="text" placeholder="Phone Number" asp-for="Phone" />
+            <input type="text" placeholder="Address" asp-for="Address" />
             <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" type="password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Sign Up" class="btn btn-primary" />
+                <button asp-controller="Accounts" asp-action="Register">Sign Up</button>
             </div>
         </form>
     </div>
-
     <div class="form-container sign-in-container">
-        <form asp-controller="Accounts" asp-action="Login" method="post">
+        <form method="post">
             <h1>Sign in</h1>
-            <div class="social-container">
-                <a asp-controller="Home" asp-action="Index" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a asp-controller="Home" asp-action="Index" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a asp-controller="Home" asp-action="Index" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-            <span>or use your account</span>
-            <div class="form-group">
-                <label asp-for="Username"></label>
-                <input asp-for="Username" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" />
-            </div>
-            <a asp-controller="Home" asp-action="Index">Forgot your password?</a>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Sign In</button>
-            </div>
-            <br>
-            <button asp-controller="Home" asp-action="Index">Home</button>
-            <p>@ViewBag.ErrorMessage</p>
+            <input type="text" placeholder="Username" asp-for="Username" />
+            <input type="password" placeholder="Password" asp-for="Password" />
+            <A href="#">Forgot your password?</A>
+            <button asp-controller="Accounts" asp-action="Login">Sign In</button>
+            <p style="color:red">@ViewBag.ErrorMessage</p>
         </form>
     </div>
     <div class="overlay-container">

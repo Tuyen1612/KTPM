@@ -2,13 +2,15 @@
     ViewData["Title"] = "Trang chủ";
     string username;
     bool member = false;
-    if(ViewBag.UserName != null)
+    if (ViewBag.UserName != null)
     {
         username = ViewBag.UserName;
         member = true;
+        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>};
     }
     else
     {
+        @section Member{};
         username = "Khach";
     }
 }

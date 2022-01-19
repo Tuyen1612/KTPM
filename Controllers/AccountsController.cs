@@ -155,31 +155,67 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
         {
             return _context.Accounts.Any(e => e.id == id);
         }
+        public ActionResult Register()
+        {
+            return RedirectToAction("Login", "Accounts");
+        }
+        //POST: Register
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(string Username, string Password, string Email, string Phone, string Address, string Fullname)
+        {
+            Account acc = _context.Accounts.FirstOrDefault(c => c.Username == Username && c.Password == Password);
+            if (acc == null)
+            {
+                acc = new Account();
+                acc.Username = Username;
+                acc.Password = Password;
+                acc.Email = Email;
+                acc.Phone = Phone;
+                acc.Address = Address;
+                acc.Fullname = Fullname;
+                acc.Status = true;
+                _context.Add(acc);
+                HttpContext.Session.SetInt32("id", acc.id);
+                HttpContext.Session.SetString("Password", acc.Password);
+                HttpContext.Session.SetString("Username", acc.Username);
+            }
+            else
+            {
+                ViewBag.error = "Error";
+                return RedirectToAction("Login", "Accounts");
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
         public IActionResult login()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login (string Username,string Password)
+        public async Task<IActionResult> Login(string Username, string Password)
         {
-            Account account = _context.Accounts.Where(a => a.Username == Username && a.Password == Password).FirstOrDefault();
-            if(account == null)
+            var account = _context.Accounts.Where(a => a.Username == Username && a.Password == Password).FirstOrDefault();
+            if (account != null)
             {
-                HttpContext.Session.SetInt32("ID", account.id);
-                HttpContext.Session.SetString("UserName", account.Username);
-                return RedirectToAction("Index", "Home");
+                HttpContext.Session.SetInt32("id", account.id);
+                HttpContext.Session.SetString("Password", account.Password);
+                HttpContext.Session.SetString("Username", account.Username);
+                return RedirectToAction("index", "Home");
             }
             else
             {
-                ViewBag.ErrorMessage = "That Bai";
+                ViewBag.ErrorMessage = "Đăng nhập thất bại";
                 return View();
             }
 
         }
         public IActionResult Logout()
         {
-            HttpContext.Session.Remove("ID");
+            HttpContext.Session.Clear();
             return RedirectToAction("Index","Home");
         }
         /*public IActionResult Register()
