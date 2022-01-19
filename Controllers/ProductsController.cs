@@ -45,6 +45,24 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
             return View(product);
         }
 
+        public async Task<IActionResult> SingleProduct(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products
+                .Include(p => p.ProductType)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
         // GET: Products/Create
         public IActionResult Create()
         {
