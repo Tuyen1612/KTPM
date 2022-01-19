@@ -7,10 +7,11 @@
     {
         username = ViewBag.UserName;
         member = true;
-        id = ViewBag.id;
+        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>};
     }
     else
     {
+        @section Member{};
         username = "Khach";
     }
 }
@@ -54,7 +55,7 @@
                             <div class="product-inner">
                                 <h2 class="product-name">@Model.Name</h2>
                                 <div class="product-inner-price">
-                                    <ins>$@Model.Price</ins> <del>$@{ var a = item.Price + 15000;} @a</del>
+                                    <ins>$@Model.Price</ins> <del>$@{ var a = Model.Price + 15000;} @a</del>
                                 </div>
 
                                 <form action="" class="cart">
@@ -79,7 +80,7 @@
                                             <p>@Model.Description</p>
                                             <h2>Author</h2>
                                             <p>@Model.Author</p>
-                                            
+
                                         </div>
                                         <div role="tabpanel" class="tab-pane fade" id="profile">
                                             <h2>Reviews</h2>
