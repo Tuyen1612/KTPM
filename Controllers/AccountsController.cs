@@ -7,12 +7,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _0306191373_0306191333_0306191376_0306191482.Data;
 using _0306191373_0306191333_0306191376_0306191482.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace _0306191373_0306191333_0306191376_0306191482.Controllers
 {
     public class AccountsController : Controller
     {
         private readonly ShopContext _context;
+
+        public DateTime Expires { get; private set; }
 
         public AccountsController(ShopContext context)
         {
@@ -57,9 +60,11 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,Avatar,Status")] Account account)
         {
+            
             if (ModelState.IsValid)
             {
-                _context.Add(account);
+               
+                    _context.Add(account);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -150,5 +155,45 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
         {
             return _context.Accounts.Any(e => e.id == id);
         }
+        public IActionResult login()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login (string Username,string Password)
+        {
+            Account account = _context.Accounts.Where(a => a.Username == Username && a.Password == Password).FirstOrDefault();
+            if(account == null)
+            {
+                HttpContext.Session.SetInt32("ID", account.id);
+                HttpContext.Session.SetString("UserName", account.Username);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "That Bai";
+                return View();
+            }
+
+        }
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("ID");
+            return RedirectToAction("Index","Home");
+        }
+        /*public IActionResult Register()
+        {
+            return View();
+        }
+        public async Task<IActionResult> Register (Account acc)
+        {
+            Account account = _context.Accounts.FirstOrDefault(r => r.Username == acc.Username );
+            if(account == null)
+            {
+                acc.Password = 
+            }
+            return View();
+        }*/
     }
 }

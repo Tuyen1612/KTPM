@@ -27,11 +27,11 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //tiendv
-            return View(await _context.Products.ToListAsync());
-            //tiendv
-            // return View();
-
+            if(HttpContext.Request.Cookies.ContainsKey("UserName"))
+            {
+                ViewBag.UserName = HttpContext.Request.Cookies["UserName"].ToString();
+            }
+            return View();
         }
 
 

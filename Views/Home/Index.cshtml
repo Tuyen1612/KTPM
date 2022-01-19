@@ -1,8 +1,19 @@
 ﻿@model IEnumerable<_0306191373_0306191333_0306191376_0306191482.Models.Product>
 @{
     ViewData["Title"] = "Trang chủ";
+    string username;
+    bool member = false;
+    if(ViewBag.UserName != null)
+    {
+        username = ViewBag.UserName;
+        member = true;
+    }
+    else
+    {
+        username = "Khach";
+    }
 }
-
+@section name{@username};
 <div class="slider-area">
     <!-- Slider -->
     <div class="block-slider block-slider4">
