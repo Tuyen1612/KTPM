@@ -183,7 +183,7 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
             else
             {
                 ViewBag.error = "Error";
-                return RedirectToAction("Login", "Accounts");
+                return RedirectToAction("Index", "Accounts");
             }
 
             _context.SaveChanges();
@@ -204,9 +204,15 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
                 HttpContext.Session.SetInt32("id", account.id);
                 HttpContext.Session.SetString("Password", account.Password);
                 HttpContext.Session.SetString("Username", account.Username);
+                HttpContext.Session.SetString("Address", account.Address);
+                HttpContext.Session.SetString("Fullname", account.Fullname);
+                HttpContext.Session.SetString("Email", account.Email);
+                HttpContext.Session.SetString("Avatar", account.Avatar);
+                HttpContext.Session.SetString("Phone", account.Phone);
+                
                 if (account.IsAdmin == false)
                 {
-                    return RedirectToAction("index", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -238,5 +244,18 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
             }
             return View();
         }*/
+        public IActionResult Profile()
+        {
+            var idUser = HttpContext.Session.GetInt32("id");
+                var account = _context.Accounts.Where(acc => acc.id == idUser).FirstOrDefault();
+            return View(account);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateProfile(string username, string fullname,string password, string address, string phone, string avatar)
+        {
+
+            return RedirectToAction("Profile","Accounts");
+        }
     }
 }
