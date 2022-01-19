@@ -20,6 +20,10 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
 
         public IActionResult Index()
         {
+            if(HttpContext.Request.Cookies.ContainsKey("UserName"))
+            {
+                ViewBag.UserName = HttpContext.Request.Cookies["UserName"].ToString();
+            }
             return View();
         }
 

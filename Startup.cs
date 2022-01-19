@@ -25,6 +25,11 @@ namespace _0306191373_0306191333_0306191376_0306191482
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+            services.AddSession(ses => 
+            {
+                ses.IdleTimeout = new TimeSpan(7,0,0,0);
+            });
             services.AddControllersWithViews();
             services.AddDbContext<ShopContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("Shop")));

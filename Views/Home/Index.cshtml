@@ -1,7 +1,18 @@
 ﻿@{
     ViewData["Title"] = "Trang chủ";
+    string username;
+    bool member = false;
+    if(ViewBag.UserName != null)
+    {
+        username = ViewBag.UserName;
+        member = true;
+    }
+    else
+    {
+        username = "Khach";
+    }
 }
-
+@section name{@username};
 <div class="slider-area">
     <!-- Slider -->
     <div class="block-slider block-slider4">
