@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<_0306191373_0306191333_0306191376_0306191482.Models.Product>
 @{
     ViewData["Title"] = "Trang chủ";
-    string username;
+    string username = "Khach"; ;
     bool member = false;
     if (ViewBag.UserName != null)
     {
@@ -12,7 +12,6 @@
     else
     {
         @section Member{};
-        username = "Khach";
     }
 }
 @section name{@username};

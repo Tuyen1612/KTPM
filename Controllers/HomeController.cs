@@ -1,4 +1,5 @@
 ﻿using _0306191373_0306191333_0306191376_0306191482.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -29,11 +30,9 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var id = HttpContext.Session.GetInt32("id");
-            ViewBag.id = id;
-            if(HttpContext.Request.Cookies.ContainsKey("UserName"))
+            if (HttpContext.Session.Keys.Contains("Username"))
             {
-                ViewBag.UserName = HttpContext.Request.Cookies["UserName"].ToString();
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
             }
             var lstProduct = _context.Products;
             return View(await lstProduct.ToListAsync());
