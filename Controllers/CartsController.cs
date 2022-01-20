@@ -130,20 +130,7 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
 
             return View(cart);
         }
-        public async Task<IActionResult> CartUser()
-        {
-            var id = HttpContext.Session.GetInt32("id");
-            if (HttpContext.Session.Keys.Contains("Username"))
-            {
-                ViewBag.UserName = HttpContext.Session.GetString("Username");
-            }
-            if (HttpContext.Session.Keys.Contains("id"))
-            {
-                ViewBag.id = HttpContext.Session.GetInt32("id");
-            }
-            var shopContext = _context.Carts.Include(c => c.Account).Include(c => c.Product).Where(i => i.AccountId == id);
-            return View(await shopContext.ToListAsync());
-        }
+        
         // GET: Carts/Create
         public IActionResult Create()
         {
@@ -153,34 +140,7 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
         }
 
         //thêm giỏ hàng
-        public IActionResult Add(int id)
-        {
-            return Add(id, 1);
-        }
-        [HttpPost]
-        public IActionResult Add(int ProductId, int Quantity)
-        {
-            string username = HttpContext.Session.GetString("Username");
-            int id = _context.Accounts.FirstOrDefault(c => c.Username == username).id;
-            Cart cart = _context.Carts.FirstOrDefault(c => c.AccountId == id && c.ProductId == ProductId);
-            if (cart == null)
-            {
-                cart = new Cart();
-                cart.AccountId = id;
-                cart.ProductId = ProductId;
-                cart.Quantity = Quantity;
-                _context.Add(cart);
-
-            }
-            else
-            {
-                cart.Quantity += Quantity;
-
-            }
-            _context.SaveChanges();
-
-            return RedirectToAction(nameof(CartUser));
-        }
+        
         //giỏ hàng
         // POST: Carts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.

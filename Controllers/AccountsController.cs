@@ -8,18 +8,22 @@ using Microsoft.EntityFrameworkCore;
 using _0306191373_0306191333_0306191376_0306191482.Data;
 using _0306191373_0306191333_0306191376_0306191482.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace _0306191373_0306191333_0306191376_0306191482.Controllers
 {
     public class AccountsController : Controller
     {
         private readonly ShopContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         public DateTime Expires { get; private set; }
 
-        public AccountsController(ShopContext context)
+        public AccountsController(ShopContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Accounts
@@ -58,7 +62,7 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,Avatar,Status")] Account account)
+        public async Task<IActionResult> Create([Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,ImageFile,Avatar,Status")] Account account)
         {
             
             if (ModelState.IsValid)
@@ -66,6 +70,22 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
                
                     _context.Add(account);
                 await _context.SaveChangesAsync();
+                if (account.ImageFile != null)
+                {
+                    var filename = account.id + Path.GetExtension(account.ImageFile.FileName);
+                    var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "user");
+                    var filePath = Path.Combine(uploadPath, filename);
+
+                    using (FileStream fs = System.IO.File.Create(filePath))
+                    {
+                        account.ImageFile.CopyTo(fs);
+                        fs.Flush();
+                    }
+                    account.Avatar = filename;
+
+                    _context.Accounts.Update(account);
+                    await _context.SaveChangesAsync();
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(account);
@@ -92,7 +112,7 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,Avatar,Status")] Account account)
+        public async Task<IActionResult> Edit(int id, [Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,ImageFile,Avatar,Status")] Account account)
         {
             if (id != account.id)
             {
