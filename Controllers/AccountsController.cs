@@ -204,15 +204,10 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
                 HttpContext.Session.SetInt32("id", account.id);
                 HttpContext.Session.SetString("Password", account.Password);
                 HttpContext.Session.SetString("Username", account.Username);
-                HttpContext.Session.SetString("Address", account.Address);
-                HttpContext.Session.SetString("Fullname", account.Fullname);
-                HttpContext.Session.SetString("Email", account.Email);
-                HttpContext.Session.SetString("Avatar", account.Avatar);
-                HttpContext.Session.SetString("Phone", account.Phone);
-                
+               
                 if (account.IsAdmin == false)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Profile", "Accounts");
                 }
                 else
                 {
@@ -269,10 +264,36 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
             return View(account);
         }
         [HttpPost]
-        public IActionResult UpdateProfile(string username, string fullname,string password, string address, string phone, string avatar)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateProfile(int id, [Bind("id,Username,Email,Phone,Address,Fullname,Avatar")] Account account)
         {
+            if (id != account.id)
+            {
+                return NotFound();
+            }
 
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(account);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!AccountExists(account.id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Profile));
+            }
             return RedirectToAction("Profile","Accounts");
         }
+
     }
 }
