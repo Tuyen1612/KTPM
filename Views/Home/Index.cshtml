@@ -1,12 +1,11 @@
-﻿@model IEnumerable<_0306191373_0306191333_0306191376_0306191482.Models.Product>
+@model IEnumerable<_0306191373_0306191333_0306191376_0306191482.Models.Product>
 @{
     ViewData["Title"] = "Trang chủ";
-    string username = "Khach"; ;
-    bool member = false;
+    string username = "Khach";
+    int Id = 0;
     if (ViewBag.UserName != null)
     {
         username = ViewBag.UserName;
-        member = true;
         @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>};
         @section Cart{
             <div class="shopping-item">
@@ -23,8 +22,13 @@
             </div>
         }
     }
+    if (ViewBag.id != null)
+    {
+        Id = ViewBag.id;
 
+    }
 }
+@section id{@Id};
 @section name{@username};
 
 

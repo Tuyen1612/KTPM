@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 
 namespace _0306191373_0306191333_0306191376_0306191482.Models
 {
@@ -32,9 +34,16 @@ namespace _0306191373_0306191333_0306191376_0306191482.Models
         public string Fullname { get; set; }
         [DisplayName("Is Admin")]
         public bool IsAdmin { get; set; }
+
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
+
         [DisplayName("Avatar")]
         [DataType(DataType.ImageUrl)]
         public  string Avatar {get; set; }
+
+       
+
         [DisplayName("Status")]
         public bool Status { get; set; }
         public List<Invoice> Invoices { get; set; }

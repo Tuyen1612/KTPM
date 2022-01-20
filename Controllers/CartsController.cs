@@ -19,56 +19,63 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
         {
             _context = context;
         }
-
-        // GET: Carts
-        public async Task<IActionResult> Index()
-        {
-            var shopContext = _context.Carts.Include(c => c.Account).Include(c => c.Product);
-            return View(await shopContext.ToListAsync());
-        }
-
-        // GET: Carts/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var cart = await _context.Carts
-                .Include(c => c.Account)
-                .Include(c => c.Product)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (cart == null)
-            {
-                return NotFound();
-            }
-
-            return View(cart);
-        }
         public async Task<IActionResult> CartUser()
         {
+            string username = HttpContext.Session.GetString("Username");
+            ViewBag.CartsTotal = _context.Carts.Include(c => c.Product).Include(c => c.Account)
+                                .Where(c => c.Account.Username == username)
+                                .Sum(c => c.Quantity * c.Product.Price);
             var id = HttpContext.Session.GetInt32("id");
             if (HttpContext.Session.Keys.Contains("Username"))
             {
-                ViewBag.UserName = HttpContext.Session.GetString("Username");
+                ViewBag.UserName = username;
             }
             if (HttpContext.Session.Keys.Contains("id"))
             {
                 ViewBag.id = HttpContext.Session.GetInt32("id");
             }
+
             var shopContext = _context.Carts.Include(c => c.Account).Include(c => c.Product).Where(i => i.AccountId == id);
             return View(await shopContext.ToListAsync());
         }
-        // GET: Carts/Create
-        public IActionResult Create()
+        public IActionResult Pay()
         {
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Username");
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
-            return View();
+            Invoice invoice = new Invoice();
+            string username = HttpContext.Session.GetString("Username");
+            Account acc = _context.Accounts.FirstOrDefault(c => c.Username == username);
+            //Hoa don
+            DateTime now = DateTime.Now;
+            invoice.Code = now.ToString("yyMMddhhmmss");
+            invoice.AccountId = _context.Accounts.FirstOrDefault(a => a.Username == username).id;
+            invoice.IssueDate = now;
+            invoice.ShippingPhone = acc.Phone;
+            invoice.ShippingAddress = acc.Address;
+            invoice.Total = _context.Carts.Include(c => c.Account).Include(c => c.Product)
+                          .Where(c => c.Account.Username == username)
+                          .Sum(c => c.Quantity * c.Product.Price);
+            _context.Add(invoice);
+            _context.SaveChanges();
+            //Chi Tiet Hoa Don
+            List<Cart> carts = _context.Carts.Include(c => c.Product).Include(c => c.Account)
+                             .Where(c => c.Account.Username == username).ToList();
+            foreach (Cart item in carts)
+            {
+                InvoiceDetail invoiceDetail = new InvoiceDetail();
+                invoiceDetail.InvoiceId = invoice.id;
+                invoiceDetail.ProductId = item.ProductId;
+                invoiceDetail.Quantity = item.Quantity;
+                invoiceDetail.UnitPrice = item.Product.Price;
+                _context.Add(invoiceDetail);
+            }
+            _context.SaveChanges();
+            foreach (Cart c in carts)
+            {
+                c.Product.Stock -= c.Quantity;
+                _context.Carts.Remove(c);
+            }
+            _context.SaveChanges();
+            return RedirectToAction("CartUser", "Carts");
         }
-
-        //thêm giỏ hàng
         public IActionResult Add(int id)
         {
             return Add(id, 1);
@@ -97,6 +104,43 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
 
             return RedirectToAction(nameof(CartUser));
         }
+        // GET: Carts
+        public async Task<IActionResult> Index()
+        {
+            var shopContext = _context.Carts.Include(c => c.Account).Include(c => c.Product);
+            return View(await shopContext.ToListAsync());
+        }
+
+        // GET: Carts/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var cart = await _context.Carts
+                .Include(c => c.Account)
+                .Include(c => c.Product)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (cart == null)
+            {
+                return NotFound();
+            }
+
+            return View(cart);
+        }
+        
+        // GET: Carts/Create
+        public IActionResult Create()
+        {
+            ViewData["AccountId"] = new SelectList(_context.Accounts, "id", "Username");
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
+            return View();
+        }
+
+        //thêm giỏ hàng
+        
         //giỏ hàng
         // POST: Carts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
