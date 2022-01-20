@@ -2,21 +2,22 @@
 
 @{
     ViewData["Title"] = "Trang chủ";
-    string username ="khach";
+    string username = "khach";
     Layout = "";
 
     if (ViewBag.UserName != null)
     {
         username = ViewBag.UserName;
         @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
+        
     }
     else
     {
         @section Member{}
-          
+       
     }
 }
-@*@section name{@username};*@
+@section name{@username}
 <!doctype html>
 <html>
 <head>
@@ -74,80 +75,92 @@
     </style>
 </head>
 <body oncontextmenu='return false' class='snippet-body'>
-    
-        <div class="container rounded bg-white mt-5 mb-5">
-            <div class="row">
-                <div class="col-md-4 border-right">
-                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="~/img/user/@Model.Avatar"><span class="font-weight-bold">@Model.Username</span><span class="text-black-50">@Model.Email</span><span> </span></div>
-                </div>
-                <div class="col-md-5 border-right">
-                    <div class="p-3 py-6">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4 class="text-right">Profile Settings</h4>
-                        </div>
-                        @*<div class="row mt-2">
-            <div class="col-md-6"><label class="labels">UserName</label><input name="username" type="text" class="form-control" placeholder="@Model.Username" value=""></div>
 
-        </div>
-        <div class="row mt-3">
-            <div class="col-md-12"><label class="labels">Phone Number</label><input name="phone" type="text" class="form-control" placeholder="@Model.Phone" value=""></div>
-            <div class="col-md-12"><label class="labels">FullName</label><input name="fullname" type="text" class="form-control" placeholder="@Model.Fullname" value=""></div>
-            <div class="col-md-12"><label class="labels">Email</label><input name="email" type="text" class="form-control" placeholder="@Model.Email" value=""></div>
-            <div class="col-md-12"><label class="labels">Address</label><input name="address" type="text" class="form-control" placeholder="@Model.Address" value=""></div>
-            <div class="col-md-12"><label class="labels">Password</label><input name="password" type="password" class="form-control" placeholder="@Model.Password" value=""></div>
-
-        </div>*@
-                        <div class="col-md-12">
-                            <form asp-action="UpdateProfile">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <input type="hidden" asp-for="id"/>
-                                <div class="form-group">
-                                    <label asp-for="Username" class="control-label"></label>
-                                    <input asp-for="Username" class="form-control" />
-                                    <span asp-validation-for="Username" class="text-danger"></span>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label asp-for="Email" class="control-label"></label>
-                                    <input asp-for="Email" class="form-control" />
-                                    <span asp-validation-for="Email" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Phone" class="control-label"></label>
-                                    <input asp-for="Phone" class="form-control" />
-                                    <span asp-validation-for="Phone" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Address" class="control-label"></label>
-                                    <input asp-for="Address" class="form-control" />
-                                    <span asp-validation-for="Address" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Fullname" class="control-label"></label>
-                                    <input asp-for="Fullname" class="form-control" />
-                                    <span asp-validation-for="Fullname" class="text-danger"></span>
-                                </div>
-                               
-                                <div class="form-group">
-                                    <label asp-for="Avatar" class="control-label"></label>
-                                    <input asp-for="Avatar" type="file" class="form-control" />
-                                    <span asp-validation-for="Avatar" class="text-danger"></span>
-                                </div>
-                                
-                                <div class="form-group">
-                                    
-                                        <input class="btn btn-primary profile-button" type="submit" value="Save" />
-                                       
-</div>
-                            </form>
-                        </div>
-
-                        <div class="mt-5 text-center"><a asp-controller="Accounts" asp-action="UpdateProfile"><button class="btn btn-primary profile-button" type="button">Save Profile</button></a></div>
-                    </div>
-                </div>
-                
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-4 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="~/img/user/@Model.Avatar"><span class="font-weight-bold">@Model.Username</span><span class="text-black-50">@Model.Email</span><span> </span></div>
             </div>
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-6">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profile Settings</h4>
+                    </div>
+                    @*<div class="row mt-2">
+                            <div class="col-md-6"><label class="labels">UserName</label><input name="username" type="text" class="form-control" placeholder="@Model.Username" value=""></div>
+
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12"><label class="labels">Phone Number</label><input name="phone" type="text" class="form-control" placeholder="@Model.Phone" value=""></div>
+                            <div class="col-md-12"><label class="labels">FullName</label><input name="fullname" type="text" class="form-control" placeholder="@Model.Fullname" value=""></div>
+                            <div class="col-md-12"><label class="labels">Email</label><input name="email" type="text" class="form-control" placeholder="@Model.Email" value=""></div>
+                            <div class="col-md-12"><label class="labels">Address</label><input name="address" type="text" class="form-control" placeholder="@Model.Address" value=""></div>
+                            <div class="col-md-12"><label class="labels">Password</label><input name="password" type="password" class="form-control" placeholder="@Model.Password" value=""></div>
+
+                        </div>*@
+                    <div class="col-md-12">
+                        <form asp-action="Profile">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="id" />
+                            <div class="form-group">
+                                <label asp-for="Username" class="control-label"></label>
+                                <input asp-for="Username" class="form-control" />
+                                <span asp-validation-for="Username" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password" class="control-label"></label>
+                                <input asp-for="Password" type="password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email" class="control-label"></label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Phone" class="control-label"></label>
+                                <input asp-for="Phone" class="form-control" />
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Address" class="control-label"></label>
+                                <input asp-for="Address" class="form-control" />
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Fullname" class="control-label"></label>
+                                <input asp-for="Fullname" class="form-control" />
+                                <span asp-validation-for="Fullname" class="text-danger"></span>
+                            </div>
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="IsAdmin" /> @Html.DisplayNameFor(model => model.IsAdmin)
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Avatar" class="control-label"></label>
+                                <input asp-for="Avatar" type="file" class="form-control" />
+                                <span asp-validation-for="Avatar" class="text-danger"></span>
+                            </div>
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
+                                </label>
+                            </div>
+                            <div class="form-group">
+
+                                <input class="btn btn-primary profile-button" type="submit" value="Save" />
+
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="mt-5 text-center"><a asp-controller="Accounts" asp-action="UpdateProfile"><a asp-controller="Accounts" asp-action="ShoppingHistory"><button class="btn btn-primary profile-button" type="button">Lịch sử mua hàng</button></a></a></div>
+                </div>
+            </div>
+
         </div>
+    </div>
     </div>
     </div>
 

@@ -263,15 +263,12 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
 
             return View(account);
         }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateProfile(int id, [Bind("id,Username,Email,Phone,Address,Fullname,Avatar")] Account account)
+        public async Task<IActionResult> Profile([Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,Avatar,Status")] Account account)
         {
-            if (id != account.id)
-            {
-                return NotFound();
-            }
-
+            
             if (ModelState.IsValid)
             {
                 try
@@ -290,9 +287,24 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Profile));
+                return RedirectToAction("Login", "Accounts");
             }
-            return RedirectToAction("Profile","Accounts");
+            return RedirectToAction( "Index", "Home");
+        }
+        public IActionResult ShoppingHistory()
+        {
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
+            var idUser = HttpContext.Session.GetInt32("id");
+            if (idUser == null)
+            {
+                return NotFound();
+            }
+            var lstInvoices = _context.Invoides.Where(inv => inv.AccountId == idUser).ToList();
+            ViewBag.InvoiceList = lstInvoices;
+            return View(lstInvoices);
         }
 
     }
