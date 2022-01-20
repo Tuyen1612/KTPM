@@ -195,5 +195,11 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
             var productList = _context.Products.Where(prod => prod.Name.Contains(keyword) || prod.SKU.Contains(keyword) || prod.ProductType.TypeName.Contains(keyword) || prod.Author.Contains(keyword)).Where(prod => prod.Price >= min && prod.Price <= max).ToList();
             return View(productList);
         }
+
+        public IActionResult DashBoard()
+        {
+           
+            return View();
+        }
     }
 }
