@@ -1,10 +1,12 @@
 ﻿@model _0306191373_0306191333_0306191376_0306191482.Models.Product
 @{
-    string username = "khach";
+    ViewData["Title"] = "Trang chủ";
+    string username = "Khach";
+    int Id = 0;
     bool member = false;
-    int id;
     if (ViewBag.UserName != null)
     {
+        Id = ViewBag.id;
         username = ViewBag.UserName;
         member = true;
         @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
@@ -22,8 +24,12 @@
                 <a asp-controller="Accounts" asp-action="Login">Cart<i class="fa fa-shopping-cart"></i></a>
             </div>
         }
+
     }
-}
+}   
+
+@section id{@Id}
+
 @section name{@username}
 <div class="product-big-title-area">
     <div class="container">

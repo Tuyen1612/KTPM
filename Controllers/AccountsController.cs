@@ -283,7 +283,6 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
 
             return View(account);
         }
-        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Profile([Bind("id,Username,Password,Email,Phone,Address,Fullname,IsAdmin,Avatar,Status")] Account account)

@@ -52,6 +52,10 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
             {
                 ViewBag.UserName = HttpContext.Session.GetString("Username");
             }
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
             if (id == null)
             {
                 return NotFound();

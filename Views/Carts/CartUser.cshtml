@@ -2,9 +2,11 @@
 @{
     ViewData["Title"] = "Trang chủ";
     string username = "Khach";
+    int Id =0;
     bool member = false;
     if (ViewBag.UserName != null)
     {
+        Id = ViewBag.id;
         username = ViewBag.UserName;
         member = true;
         @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
@@ -25,15 +27,7 @@
 
     }
 }
-    }
-
-    if (ViewBag.id != null)
-    {
-        Id = ViewBag.id;
-
-    }
-}
-@section idWish{@Id}
+    
 @section id{@Id}
 
 @section name{@username}
@@ -99,7 +93,7 @@
     <div class="col-md-4">
         <div class="mb-3">Tổng Tiền: @ViewBag.CartsTotal.ToString("#,##0") VND</div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary "><a asp-controller="Carts" asp-action="Pay">Pay</a></button>
+            <a asp-controller="Carts" asp-action="Pay"> <button type="submit" class="btn btn-primary ">Pay</button> </a>
         </div>
     </div>
 </div>
