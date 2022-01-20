@@ -8,13 +8,26 @@
         username = ViewBag.UserName;
         member = true;
         @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>};
+        @section Cart{
+            <div class="shopping-item">
+                <a asp-controller="Carts" asp-action="CartUser">Cart<i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+            </div>
+        }
     }
     else
     {
         @section Member{};
+        @section Cart{
+            <div class="shopping-item">
+                <a asp-controller="Accounts" asp-action="Login">Cart<i class="fa fa-shopping-cart"></i></a>
+            </div>
+        }
     }
+
 }
 @section name{@username};
+
+
 <div class="slider-area">
     <!-- Slider -->
     <div class="block-slider block-slider4">
@@ -132,9 +145,9 @@
                     <h2 class="product-wid-title">Top Sellers</h2>
                     <a href="" class="wid-view-more">View All</a>
                     @{ int i = 0;}
-                    @foreach(var item in Model)
+                    @foreach (var item in Model)
                     {
-                        if(i >= 3)
+                        if (i >= 3)
                         {
                             break;
                         }
@@ -150,12 +163,12 @@
                                 <i class="fa fa-star"></i>
                             </div>
                             <div class="product-wid-price">
-                                <ins>$@item.Price</ins> <del>$@{ var a = item.Price +10000;}@a</del>
+                                <ins>$@item.Price</ins> <del>$@{ var a = item.Price + 10000;}@a</del>
                             </div>
                         </div>
                     }
-                    </div>
-                    
+                </div>
+
             </div>
             <div class="col-md-4">
                 <div class="single-product-widget">
