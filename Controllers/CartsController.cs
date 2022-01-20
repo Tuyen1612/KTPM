@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _0306191373_0306191333_0306191376_0306191482.Data;
 using _0306191373_0306191333_0306191376_0306191482.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace _0306191373_0306191333_0306191376_0306191482.Controllers
 {
@@ -18,7 +19,91 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
         {
             _context = context;
         }
+        public async Task<IActionResult> CartUser()
+        {
+            string username = HttpContext.Session.GetString("Username");
+            ViewBag.CartsTotal = _context.Carts.Include(c => c.Product).Include(c => c.Account)
+                                .Where(c => c.Account.Username == username)
+                                .Sum(c => c.Quantity * c.Product.Price);
+            var id = HttpContext.Session.GetInt32("id");
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = username;
+            }
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
 
+            var shopContext = _context.Carts.Include(c => c.Account).Include(c => c.Product).Where(i => i.AccountId == id);
+            return View(await shopContext.ToListAsync());
+        }
+        public IActionResult Pay()
+        {
+            Invoice invoice = new Invoice();
+            string username = HttpContext.Session.GetString("Username");
+            Account acc = _context.Accounts.FirstOrDefault(c => c.Username == username);
+            //Hoa don
+            DateTime now = DateTime.Now;
+            invoice.Code = now.ToString("yyMMddhhmmss");
+            invoice.AccountId = _context.Accounts.FirstOrDefault(a => a.Username == username).id;
+            invoice.IssueDate = now;
+            invoice.ShippingPhone = acc.Phone;
+            invoice.ShippingAddress = acc.Address;
+            invoice.Total = _context.Carts.Include(c => c.Account).Include(c => c.Product)
+                          .Where(c => c.Account.Username == username)
+                          .Sum(c => c.Quantity * c.Product.Price);
+            _context.Add(invoice);
+            _context.SaveChanges();
+            //Chi Tiet Hoa Don
+            List<Cart> carts = _context.Carts.Include(c => c.Product).Include(c => c.Account)
+                             .Where(c => c.Account.Username == username).ToList();
+            foreach (Cart item in carts)
+            {
+                InvoiceDetail invoiceDetail = new InvoiceDetail();
+                invoiceDetail.InvoiceId = invoice.id;
+                invoiceDetail.ProductId = item.ProductId;
+                invoiceDetail.Quantity = item.Quantity;
+                invoiceDetail.UnitPrice = item.Product.Price;
+                _context.Add(invoiceDetail);
+            }
+            _context.SaveChanges();
+            foreach (Cart c in carts)
+            {
+                c.Product.Stock -= c.Quantity;
+                _context.Carts.Remove(c);
+            }
+            _context.SaveChanges();
+            return RedirectToAction("CartUser", "Carts");
+        }
+        public IActionResult Add(int id)
+        {
+            return Add(id, 1);
+        }
+        [HttpPost]
+        public IActionResult Add(int ProductId, int Quantity)
+        {
+            string username = HttpContext.Session.GetString("Username");
+            int id = _context.Accounts.FirstOrDefault(c => c.Username == username).id;
+            Cart cart = _context.Carts.FirstOrDefault(c => c.AccountId == id && c.ProductId == ProductId);
+            if (cart == null)
+            {
+                cart = new Cart();
+                cart.AccountId = id;
+                cart.ProductId = ProductId;
+                cart.Quantity = Quantity;
+                _context.Add(cart);
+
+            }
+            else
+            {
+                cart.Quantity += Quantity;
+
+            }
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(CartUser));
+        }
         // GET: Carts
         public async Task<IActionResult> Index()
         {

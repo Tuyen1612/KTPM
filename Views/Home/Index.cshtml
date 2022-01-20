@@ -1,19 +1,24 @@
 ﻿@model IEnumerable<_0306191373_0306191333_0306191376_0306191482.Models.Product>
 @{
     ViewData["Title"] = "Trang chủ";
-    string username = "Khach"; ;
-    bool member = false;
+    string username = "Khach";
+    int Id = 0;
     if (ViewBag.UserName != null)
     {
         username = ViewBag.UserName;
-        member = true;
         @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>};
     }
     else
     {
         @section Member{};
     }
+    if (ViewBag.id != null)
+    {
+        Id = ViewBag.id;
+
+    }
 }
+@section id{@Id};
 @section name{@username};
 <div class="slider-area">
     <!-- Slider -->
@@ -132,9 +137,9 @@
                     <h2 class="product-wid-title">Top Sellers</h2>
                     <a href="" class="wid-view-more">View All</a>
                     @{ int i = 0;}
-                    @foreach(var item in Model)
+                    @foreach (var item in Model)
                     {
-                        if(i >= 3)
+                        if (i >= 3)
                         {
                             break;
                         }
@@ -150,12 +155,12 @@
                                 <i class="fa fa-star"></i>
                             </div>
                             <div class="product-wid-price">
-                                <ins>$@item.Price</ins> <del>$@{ var a = item.Price +10000;}@a</del>
+                                <ins>$@item.Price</ins> <del>$@{ var a = item.Price + 10000;}@a</del>
                             </div>
                         </div>
                     }
-                    </div>
-                    
+                </div>
+
             </div>
             <div class="col-md-4">
                 <div class="single-product-widget">

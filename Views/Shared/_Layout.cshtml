@@ -45,7 +45,7 @@
                         <ul>
                             <li><a asp-controller="Accounts" asp-action="Login"><i class="fa fa-user"></i> @RenderSection("name")</a></li>
                             <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
+                            <li><a asp-controller="Carts" asp-action="CartsUser" asp-route-id="@RenderSection("Id")"><i class="fa fa-user"></i> My Cart</a></li>
                             <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
                             @RenderSection("Member")
                         </ul>
