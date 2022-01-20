@@ -104,6 +104,31 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
 
             return RedirectToAction(nameof(CartUser));
         }
+        public IActionResult Tang(int id)
+        {
+            string username = HttpContext.Session.GetString("Username");
+            int ids = _context.Accounts.FirstOrDefault(c => c.Username == username).id;
+            Cart cart = _context.Carts.FirstOrDefault(c => c.Id == id && c.AccountId == ids);
+            cart.Quantity += 1;
+            _context.SaveChanges();
+            return RedirectToAction("CartUser", "Carts");
+        }
+        public IActionResult Giam(int id)
+        {
+            string username = HttpContext.Session.GetString("Username");
+            int ids = _context.Accounts.FirstOrDefault(c => c.Username == username).id;
+            Cart cart = _context.Carts.FirstOrDefault(c => c.Id == id && c.AccountId == ids);
+            if (cart.Quantity == 1)
+            {
+                cart.Quantity = 1;
+            }
+            else
+            {
+                cart.Quantity -= 1;
+            }
+            _context.SaveChanges();
+            return RedirectToAction("CartUser", "Carts");
+        }
         // GET: Carts
         public async Task<IActionResult> Index()
         {
