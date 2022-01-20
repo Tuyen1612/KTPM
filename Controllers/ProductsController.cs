@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _0306191373_0306191333_0306191376_0306191482.Data;
 using _0306191373_0306191333_0306191376_0306191482.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace _0306191373_0306191333_0306191376_0306191482.Controllers
 {
@@ -47,6 +48,10 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
 
         public async Task<IActionResult> SingleProduct(int? id)
         {
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
             if (id == null)
             {
                 return NotFound();
