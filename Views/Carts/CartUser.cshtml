@@ -8,11 +8,21 @@
         username = ViewBag.UserName;
         member = true;
         @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>}
+        @section Cart{
+            <div class="shopping-item">
+                <a asp-controller="Carts" asp-action="CartUser">Cart<i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+            </div>
+        }
     }
     else
     {
         @section Member{}
-        
+        @section Cart{
+            <div class="shopping-item">
+                <a asp-controller="Accounts" asp-action="Login">Cart<i class="fa fa-shopping-cart"></i></a>
+            </div>
+        }
+
     }
 }
 @section name{@username}
@@ -74,10 +84,3 @@
         </tbody>
     </table>
 </div>
-
-
-@section productTypeName {
-    <select class="input-select" asp-items="ViewBag.ProductType">
-    </select>
-
-}

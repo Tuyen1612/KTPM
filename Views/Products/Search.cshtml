@@ -4,7 +4,32 @@
 *@
 @{
     ViewData["Title"] = "Kết quả tìm kiếm";
+    string username = "Khach"; ;
+    bool member = false;
+    if (ViewBag.UserName != null)
+    {
+        username = ViewBag.UserName;
+        member = true;
+        @section Member{<li><a asp-controller="Accounts" asp-action="Logout">Logout</a></li>};
+        @section Cart{
+            <div class="shopping-item">
+                <a asp-controller="Carts" asp-action="CartUser">Cart<i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+            </div>
+        }
+    }
+    else
+    {
+        @section Member{}
+        @section Cart{
+            <div class="shopping-item">
+                <a asp-controller="Accounts" asp-action="Login">Cart<i class="fa fa-shopping-cart"></i></a>
+            </div>
+        }
+    }
+
 }
+@section name{@username};
+
 <div class="product-big-title-area">
     <div class="container">
         <div class="row">
@@ -18,22 +43,20 @@
 </div>
 
 <!--================Search Box Area =================-->
+<!--================Search Box Area =================-->
+<div class="search_area zoom-anim-dialog mfp-hide" id="test-search" style="margin-left:200px">
+    <div class="search_box_inner">
+        <form asp-controller="Products" asp-action="Search" method="get">
 
-   
-        <!--================Search Box Area =================-->
-        <div class="search_area zoom-anim-dialog mfp-hide" id="test-search" style="margin-left:200px">
-            <div class="search_box_inner">
-                <form asp-controller="Products" asp-action="Search" method="get">
-
-                    <div class="input-group" style="margin-top:10px">
-                        <input type="text" name="min" class="form-control" placeholder="Nhập giá ">
-                        <input style="margin-top:10px" type="text" name="max" class="form-control" placeholder="Nhập giá">
-                        <button style="margin-top:10px">Search</button>
-                    </div>
-
-                </form>
+            <div class="input-group" style="margin-top:10px">
+                <input type="text" name="min" class="form-control" placeholder="Nhập giá ">
+                <input style="margin-top:10px" type="text" name="max" class="form-control" placeholder="Nhập giá">
+                <button style="margin-top:10px">Search</button>
             </div>
-        </div>
+
+        </form>
+    </div>
+</div>
 
 
 <div class="single-product-area">
