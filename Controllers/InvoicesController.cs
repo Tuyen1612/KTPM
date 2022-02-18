@@ -25,6 +25,21 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
             var lstInvoices = _context.Invoides.Include(i => i.Account).ToList();
             return View(lstInvoices);
         }
+        public async Task<IActionResult> New()
+        {
+            int temp = (int)DateTime.Now.DayOfWeek; //lấy ra thứ của ngày hôm nay ví dụ thứ 3 
+            DateTime top =   DateTime.Now.AddDays(8-temp);
+            DateTime bot = DateTime.Now.AddDays(-( temp -2));
+            var lstInvoices = _context.Invoides
+                .Where(i => i.IssueDate.Year >= bot.Year)
+                .Where(i => i.IssueDate.Month >= bot.Month)
+                .Where(i => i.IssueDate.Day >= bot.Day)
+                .Where(i => i.IssueDate.Year <= top.Year)
+                .Where(i => i.IssueDate.Year >= top.Month)
+                .Where(i => i.IssueDate.Year >= top.Day)
+                .ToList();
+            return View(lstInvoices);
+        }
 
         // GET: Invoices/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -12,20 +12,8 @@
             <div class="col-md-12">
                 <h3 class="title-5 m-b-35">Danh sách hóa đơn</h3>
                 <div class="table-data__tool">
-
-                    <div class="table-data__tool-right">
-                        <a asp-action="Create">
-                            <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                                <i class="zmdi zmdi-plus"></i>Add
-                            </button>
-                        </a>
-                    </div>
-                    <div class="table-data__tool-right">
-                        <a asp-action="New">
-                            <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                                <i></i> This Week
-                            </button>
-                        </a>
+                    <div style="margin-left:300px">
+                        <a asp-action="Index">Back to List</a>
                     </div>
                 </div>
                 <div class="table-responsive table-responsive-data2">
@@ -61,7 +49,7 @@
                                     @Html.DisplayNameFor(model => model.Status)
                                 </th>
                                 <th></th>
-                                
+
                             </tr>
 
                         </thead>
@@ -112,4 +100,3 @@
     </div>
 </section>
 <!-- END DATA TABLE-->
-
