@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 
 namespace _0306191373_0306191333_0306191376_0306191482.Models
 {
@@ -42,6 +44,8 @@ namespace _0306191373_0306191333_0306191376_0306191482.Models
         [DisplayName("Loại sản phẩm")]
         public ProductType ProductType { get; set; }
 
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
         [DisplayName("Hình ảnh")]
         [DataType(DataType.ImageUrl)]
         public string Image { get; set; }

@@ -8,16 +8,18 @@ using Microsoft.EntityFrameworkCore;
 using _0306191373_0306191333_0306191376_0306191482.Data;
 using _0306191373_0306191333_0306191376_0306191482.Models;
 using Microsoft.AspNetCore.Http;
-
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 namespace _0306191373_0306191333_0306191376_0306191482.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly ShopContext _context;
-
-        public ProductsController(ShopContext context)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public ProductsController(ShopContext context,  IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Products
@@ -26,6 +28,8 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
             var shopContext = _context.Products.Include(p => p.ProductType);
             return View(await shopContext.ToListAsync());
         }
+        
+        
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -84,12 +88,28 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SKU,Name,Author,Description,Price,Stock,ProductTypeId,Image,Status")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,SKU,Name,Author,Description,Price,Stock,ProductTypeId,ImageFile,Image,Status")] Product product)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
+                if (product.ImageFile != null)
+                {
+                    var filename = Guid.NewGuid() + Path.GetExtension(product.ImageFile.FileName);
+                    var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "product");
+                    var filePath = Path.Combine(uploadPath, filename);
+
+                    using (FileStream fs = System.IO.File.Create(filePath))
+                    {
+                        product.ImageFile.CopyTo(fs);
+                        fs.Flush();
+                    }
+                    product.Image = filename;
+
+                    _context.Products.Update(product);
+                    await _context.SaveChangesAsync();
+                }
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ProductTypeId"] = new SelectList(_context.ProductTypes, "Id", "TypeName", product.ProductTypeId);
@@ -124,7 +144,22 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
             {
                 return NotFound();
             }
+            if (product.ImageFile != null)
+            {
+                var filename = Guid.NewGuid() + Path.GetExtension(product.ImageFile.FileName);
+                var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "product");
+                var filePath = Path.Combine(uploadPath, filename);
 
+                using (FileStream fs = System.IO.File.Create(filePath))
+                {
+                    product.ImageFile.CopyTo(fs);
+                    fs.Flush();
+                }
+                product.Image = filename;
+
+                _context.Products.Update(product);
+                await _context.SaveChangesAsync();
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -187,6 +222,15 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
         [HttpGet]
         public IActionResult Search(string keyword = "", int min = 0, int max = int.MaxValue)
         {
+            if (HttpContext.Session.Keys.Contains("Username"))
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("Username");
+            }
+            if (HttpContext.Session.Keys.Contains("id"))
+            {
+                ViewBag.id = HttpContext.Session.GetInt32("id");
+            }
+         
             if (keyword == null)
             {
                 keyword = "";
