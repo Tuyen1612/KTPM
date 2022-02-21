@@ -8,34 +8,14 @@
 <section class="p-t-20">
     <div class="container">
         <div class="row">
+            <div>
+                <a asp-action="Index">Back to List</a>
+            </div>
             <div class="col-md-12">
-                <h3 class="title-5 m-b-35">Danh Sách Sản Phẩm</h3>
-                <div class="table-data__tool">
-
-                    <div class="table-data__tool-right">
-
-                        <a asp-action="Create">
-                            <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                                <i class="zmdi zmdi-plus"></i>Add
-                            </button>
-                        </a>
-                    </div>
-                    <div class="search_area zoom-anim-dialog mfp-hide" id="test-search" style="margin-left:200px">
-                        <div class="search_box_inner">
-                            <form asp-controller="Products" asp-action="Top" method="get">
-                                <div class="input-group" style="margin-top:10px">
-                                    <input style="margin-top:10px" type="text" name="top" class="form-control" placeholder="Nhập Top">
-                                    <button style="margin-top:10px">Top-Search</button>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                <h3 class="title-5 m-b-35">Danh Sách Top Sản Phẩm</h3>
                 <div class="table-responsive table-responsive-data2">
                     <table class="table table-data2">
                         <thead>
-
                             <tr>
                                 <th>
                                     <label class="au-checkbox">
@@ -99,7 +79,7 @@
                                         @Html.DisplayFor(modelItem => item.ProductType.TypeName)
                                     </td>
                                     <td>
-                                        <img style=" max-width:200px ; max-height:200px"  src="~/img/product/@Html.DisplayFor(modelItem => item.Image)" />
+                                        <img style=" max-width:200px ; max-height:200px" src="~/img/product/@Html.DisplayFor(modelItem => item.Image)" />
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Status)

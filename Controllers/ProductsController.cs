@@ -28,8 +28,14 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
             var shopContext = _context.Products.Include(p => p.ProductType);
             return View(await shopContext.ToListAsync());
         }
-        
-        
+        public async Task<IActionResult> Top(int Top)
+        {
+            var list = _context.Products.Take(Top).ToList();
+
+            return View(list);
+        }
+
+       
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
