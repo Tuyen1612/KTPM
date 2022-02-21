@@ -129,6 +129,18 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
             _context.SaveChanges();
             return RedirectToAction("CartUser", "Carts");
         }
+        public IActionResult clearCart()
+        {
+            string username = HttpContext.Session.GetString("Username");
+            List<Cart> carts = _context.Carts.Include(c => c.Product).Include(c => c.Account)
+                             .Where(c => c.Account.Username == username).ToList();
+            foreach (Cart c in carts)
+            {
+                _context.Carts.Remove(c);
+            }
+            _context.SaveChanges();
+            return RedirectToAction(nameof(CartUser));
+        }
         // GET: Carts
         public async Task<IActionResult> Index()
         {
