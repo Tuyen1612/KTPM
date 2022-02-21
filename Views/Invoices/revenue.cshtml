@@ -1,0 +1,65 @@
+﻿
+
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Hóa đơn";
+    
+    List<(DateTime date ,int total)> doanhthu = ViewBag.DoanhThuNgay;
+}
+
+<!-- DATA TABLE-->
+<section class="p-t-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="title-5 m-b-35">Danh sách hóa đơn</h3>
+               
+                <div class="table-responsive table-responsive-data2">
+                    <table class="table table-data2">
+                        <thead>
+
+                            <tr>
+                                <th>
+                                    <label class="au-checkbox">
+                                        <input type="checkbox">
+                                        <span class="au-checkmark"></span>
+                                    </label>
+                                </th>
+                                <th>
+                                    Date
+                                </th>
+                                <th>
+                                   Total
+                                </th>
+                                <th></th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @foreach (var item in doanhthu)
+                            {
+                                <tr>
+                                    <td>
+                                        <label class="au-checkbox">
+                                            <input type="checkbox">
+                                            <span class="au-checkmark"></span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                       @item.date
+                                    </td>
+                                    <td>
+                                        @item.Total
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END DATA TABLE-->
