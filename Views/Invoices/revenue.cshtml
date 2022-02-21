@@ -1,10 +1,13 @@
-﻿
+﻿@model IEnumerable<_0306191373_0306191333_0306191376_0306191482.Models.Invoice>
 
 @{
     Layout = "_LayoutAdmin";
     ViewData["Title"] = "Hóa đơn";
-    
-    List<(DateTime date ,int total)> doanhthu = ViewBag.DoanhThuNgay;
+    var firstinvoice = Model
+            .OrderBy(i => i.IssueDate).FirstOrDefault();
+    int fday = firstinvoice.IssueDate.Day;
+    int fmonth = firstinvoice.IssueDate.Month;
+    int fyear = firstinvoice.IssueDate.Year;
 }
 
 <!-- DATA TABLE-->
@@ -12,8 +15,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h3 class="title-5 m-b-35">Danh sách hóa đơn</h3>
-               
+                <h3 class="title-5 m-b-35">Doanh Thu Theo Ngày</h3>
+
                 <div class="table-responsive table-responsive-data2">
                     <table class="table table-data2">
                         <thead>
@@ -26,10 +29,16 @@
                                     </label>
                                 </th>
                                 <th>
-                                    Date
+                                    Day
                                 </th>
                                 <th>
-                                   Total
+                                    Month
+                                </th>
+                                <th>
+                                    Year
+                                </th>
+                                <th>
+                                    Revenue
                                 </th>
                                 <th></th>
 
@@ -37,7 +46,71 @@
 
                         </thead>
                         <tbody>
-                            @foreach (var item in doanhthu)
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    <label class="au-checkbox">
+                                        <input type="checkbox">
+                                        <span class="au-checkmark"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    @item.IssueDate.Day
+                                </td>
+                                <td>
+                                    @item.IssueDate.Month
+                                </td>
+                                <td>
+                                    @item.IssueDate.Year
+                                </td>
+                                <td>
+                                    @{var a = Model.Where(i => i.IssueDate.Day == item.IssueDate.Day).Where(i => i.IssueDate.Month == item.IssueDate.Month).Where(i => i.IssueDate.Year == item.IssueDate.Year).Sum(i => i.Total);} @a
+                                </td>
+
+                            </tr>
+                             }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="p-t-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="title-5 m-b-35">Doanh Thu Theo Tháng</h3>
+
+                <div class="table-responsive table-responsive-data2">
+                    <table class="table table-data2">
+                        <thead>
+
+                            <tr>
+                                <th>
+                                    <label class="au-checkbox">
+                                        <input type="checkbox">
+                                        <span class="au-checkmark"></span>
+                                    </label>
+                                </th>
+                                <th>
+                                    Month
+                                </th>
+                                <th>
+                                    Year
+                                </th>
+                                <th>
+                                    Revenue
+                                </th>
+                                <th></th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @for ( int y = fyear; y <=DateTime.Now.Year; y++) {
+                            @for (int m = 1; m <=12; m++)
                             {
                                 <tr>
                                     <td>
@@ -47,10 +120,67 @@
                                         </label>
                                     </td>
                                     <td>
-                                       @item.date
+                                        @m
                                     </td>
                                     <td>
-                                        @item.Total
+                                        @y
+                                    </td>
+                                    <td>
+                                        @{var a = Model.Where(i => i.IssueDate.Month == m).Where(i => i.IssueDate.Year == y).Sum(i => i.Total);} @a
+                                    </td>
+                                    @if (m==12) {break; }
+                                </tr>
+                                            }}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="p-t-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="title-5 m-b-35">Doanh Thu Theo Năm</h3>
+
+                <div class="table-responsive table-responsive-data2">
+                    <table class="table table-data2">
+                        <thead>
+
+                            <tr>
+                                <th>
+                                    <label class="au-checkbox">
+                                        <input type="checkbox">
+                                        <span class="au-checkmark"></span>
+                                    </label>
+                                </th>
+                                <th>
+                                    Year
+                                </th>
+                                <th>
+                                    Revenue
+                                </th>
+                                <th></th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @for(int ix = fyear; ix <= DateTime.Now.Year; ix++)
+                            {
+                                <tr>
+                                    <td>
+                                        <label class="au-checkbox">
+                                            <input type="checkbox">
+                                            <span class="au-checkmark"></span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                       @ix
+                                    </td>
+                                    <td>
+                                        @{var a = Model.Where(i => i.IssueDate.Year == ix).Sum(i => i.Total);} @a
                                     </td>
 
                                 </tr>

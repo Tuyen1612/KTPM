@@ -25,25 +25,11 @@ namespace _0306191373_0306191333_0306191376_0306191482.Controllers
             var lstInvoices = _context.Invoides.Include(i => i.Account).ToList();
             return View(lstInvoices);
         }
-        // doanh thu 
+        // doanh thu theo ngày
         public async Task<IActionResult> revenue()
         { 
-            //lấy ngày tháng năm hiện tại
-            int nday = DateTime.Now.Day;
-            int nmonth = DateTime.Now.Month;
-            int nyear = DateTime.Now.Year;
-            //lấy ngày tháng năm hóa đơn đầu tiên 
-            var firstinvoice = _context.Invoides
-            .OrderBy(i => i.IssueDate).FirstOrDefault();
-            int fday = firstinvoice.IssueDate.Day;
-            int fmonth = firstinvoice.IssueDate.Month;
-            int fyear = firstinvoice.IssueDate.Year;
-            //doanh thu theo ngày 
-            var lstDayrevenue = _context.Invoides
-                                .Select(inv => new { DateTime = inv.IssueDate.Date, Total = inv.Total}).GroupBy(i => i.DateTime).ToListAsync();
-            // var lstDayrevenue = temp.GroupBy( i =>i.DateTime.Date);
-            ViewBag.DoanhThuNgay =  lstDayrevenue ;
-            return View();
+            var lstDayrevenue = _context.Invoides.ToList();
+            return View(lstDayrevenue);
         }
         // hóa đơn trong tuần
         public async Task<IActionResult> New()
