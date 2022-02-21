@@ -107,16 +107,15 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a asp-controller="Home" asp-action="Index">Trang Chủ</a></li>
-                        <li><a href="shop.html">Văn Học</a></li>
-                        <li><a href="single-product.html">Kinh Tế</a></li>
-                        <li><a asp-controller="Carts" asp-action="CartUser">Tâm Lý</a></li>
-                        <li><a href="checkout.html">Ngoại Ngữ</a></li>
-                        <li><a asp-controller="productTypes" asp-action="Index">Thiếu Nhi</a></li>
-                        <li><a href="#">Khác</a></li>
-                        <li><a href="#">Liên Hệ</a></li>
-                        <li style="margin-left:40px;" >
-                            <label> Tìm Kiếm </label>
+                        <li class="active"><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop page</a></li>
+                        <li><a href="single-product.html">Single product</a></li>
+                        <li><a asp-controller="Carts" asp-action="CartUser">Cart</a></li>
+                        <li><a href="checkout.html">Checkout</a></li>
+                        <li><a asp-controller="productTypes" asp-action="Index">Category</a></li>
+                        <li><a href="#">Others</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li>
                             <!--================Search Box Area =================-->
                             <form asp-controller="Products" asp-action="Search" method="get">
 

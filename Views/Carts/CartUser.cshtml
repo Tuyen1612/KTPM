@@ -32,7 +32,7 @@
 
 @section name{@username}
 
-<div class="column" style="width:50%">
+<div class="column" style="margin-left: 80px">
     <table class="table">
         <thead>
             <tr>
@@ -86,7 +86,7 @@
                         @Html.DisplayFor(modelItem => item.Product.Price)
                     </td>
                     <td>
-                        <a asp-action="DeleteUser" asp-route-id="@item.Id">Delete</a>
+                        @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
                     </td>
                 </tr>
             }
